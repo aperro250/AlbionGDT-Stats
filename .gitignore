@@ -1,0 +1,5 @@
+albion_guild_stats.db
+.venv
+.idea
+pyproject.toml
+uv.lock
