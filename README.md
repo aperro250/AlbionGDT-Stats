@@ -1,11 +1,11 @@
 # 🎮 AlbionGDT-Stats
 
-As the project name suggests, this project generates daily guild member statistics for Albion Online and sends them to a selected Discord chat.
+As the project name suggests, this project generates daily guild member statistics for Albion Online and sends them to a selected Discord channel.
 
 <table>
   <tr>
     <td valign="top">
-      <img src="ReadmeAssets/Images/Discord_Message1.png" width="300" alt="Title, kill, Death and PVE Fame">
+      <img src="ReadmeAssets/Images/Discord_Message1.png" width="300" alt="Title, Kill, Death and PvE Fame">
     </td>
     <td valign="bottom">
       <img src="ReadmeAssets/Images/Discord_Message2.png" width="300" alt="Gathering and Crafting Fame">
@@ -13,28 +13,30 @@ As the project name suggests, this project generates daily guild member statisti
   </tr>
 </table>
 
-# 👁️‍🗨️ The project usage
+# 👁️‍🗨️ Project Overview
 
-There used to be a Discord bot, Albion Tools, that sent daily information about members, but at the moment it has some server issues and does not work.
+There used to be a Discord bot called Albion Tools that sent daily information about guild members, but it currently has server issues and does not work.
 
-As a solution, I did my own investigation about ***where it obtained the data?***, and wrote this project to create a fully automatic and **FREE** Discord bot that sends daily statistics to a selected Discord channel. I will explain below in the installation guide how it works and where the data comes from if you want to investigate or are just interested in the code functionality.
+As a solution, I investigated ***where it obtained the data*** and wrote this project to create a fully automatic and **FREE** Discord bot that sends daily statistics to a selected Discord channel. I will explain below in the installation guide how it works and where the data comes from, in case you want to investigate or are simply interested in the code.
 
 # ❗ IMPORTANT
 
-***This project manages current information, and the data in the database is from yesterday, so the daily statistics are not for today, they are for yesterday!***
+***This project manages current information, and the data in the database is from yesterday, so the daily statistics are not for today — they are for yesterday!***
 
-# 1.🛠️ Installation guide
+***On the first day there will be no statistics message, because the program needs a minimum of 2 days to collect all the necessary data to work. Statistics will be available from the second day onward.***
+
+# 1. 🛠️ Installation Guide
 
 ## 1.1 ⏬ Download
 
-**Clone this repository** from github
+**Clone this repository** from GitHub:
 
 ```bash
 git clone https://github.com/aperro250/AlbionGDT-Stats.git
 cd AlbionGDT-Stats
 ```
 
-Now, download the required Python packages *(discord.py and requests)*. They are listed in **requirements.txt**
+Now install the required Python packages *(discord.py and requests)*. They are listed in **requirements.txt**:
 
 ```bash
 pip install -r requirements.txt
@@ -42,13 +44,13 @@ pip install -r requirements.txt
 
 ### 🔴 error: externally-managed-environment
 
-If you get the error **error: externally-managed-environment**, you must create a virtual Python environment and from then on run the commands inside it. To create it, run the following command:
+If you get the error **error: externally-managed-environment**, you must create a virtual Python environment and run all commands inside it. To create it, run:
 
 ```bash
 python -m venv venv
 ```
 
-And enter the environment. Also, **VERY IMPORTANT**, if you restart the console, you need to run this command again to use the installed Python packages.
+Then activate the environment. **IMPORTANT:** if you restart the console, you need to run this command again to use the installed Python packages.
 
 **WINDOWS**
 
@@ -62,11 +64,11 @@ source venv/Scripts/activate
 source venv/bin/activate
 ```
 
-Now run the Python requirements command from before.
+Now run the pip install command from before.
 
-# 2 ⚙️ Configuration
+# 2. ⚙️ Configuration
 
-Now, when everything is installed, let's make the code work.
+Once everything is installed, let's configure the project.
 
 Locate the file **config.json**, which contains the configuration.
 
@@ -77,7 +79,7 @@ Here is the file syntax:
     "discord_token": "DISCORD_TOKEN",
     "guild_id": "ALBION_GUILD_ID",
     "channels": {
-        "rating":[
+        "rating": [
             FIRST_DISCORD_CHANNEL_ID,
             SECOND_DISCORD_CHANNEL_ID,
             ...
@@ -86,74 +88,162 @@ Here is the file syntax:
 }
 ```
 
-Yes, it supports multiple Discord channels, but it also works with only one, so the others are optional.
+Multiple Discord channels are supported, but the project also works with just one — the others are optional.
 
-### 2.1 🤖 Obtain discord bot token
+### 2.1 🤖 Obtain a Discord Bot Token
 
-Go to the [Discord Devoloper Portal](https://discord.com/developers/home) and create your Discord bot.
+Go to the [Discord Developer Portal](https://discord.com/developers/home) and create a new bot or use an existing application.
 
-After it is created, go to your bot **"Application"** and access the **Bot** settings section. Look for the **Token** section and press the regeneration button. It will give you the bot token, which you can then paste into the config.
+After it is created, go to your application and open the **Bot** settings section. Find the **Token** section and click the regenerate button. Copy the token and paste it into the config file.
 
 ![](ReadmeAssets/Images/Discord_Bot.png)
 
+To use the bot, you also need to invite it to your server. Go to the **OAuth2** section, open the **URL Generator**, select **bot** as the scope, and grant it the permission to **send messages in text channels**. Copy the generated URL, open it in your browser, and invite the bot to your server.
+
 ### 2.2 📋 Obtain the Albion Online Guild ID
 
-To obtain your guild ID, I recommend using external sources. I used [Albion Online Tools](https://albiononlinetools.com/), you can [search the guild](https://albiononlinetools.com/player/guildfinder.php) and in the information section you will see the guild id.
+To obtain your guild ID, I recommend using an external source. I used [Albion Online Tools](https://albiononlinetools.com/) — you can [search for your guild](https://albiononlinetools.com/player/guildfinder.php) and find the guild ID in the information section.
 
 ![](ReadmeAssets/Images/Guild_ID.png)
 
-### 2.3 🗨️ Obtain Discord Chat ID
+### 2.3 🗨️ Obtain a Discord Channel ID
 
-***It's optional, the bot can automatically configure that section in the future.***
+***This is optional — the bot can configure this automatically using the `/set-channel` command.***
 
-You can obtain the Discord chat ID by right-clicking the chat and selecting the last option, **"Copy chat ID"**
+You can obtain the Discord channel ID by right-clicking the channel and selecting **"Copy Channel ID"**.
 
-# 3 🐍 Running the code
+# 3. 🐍 Running the Code
 
-When all requirements and the configuration file are ready, you can run the code. The project has 2 runtime entry points and 1 that runs everything at once.
+Once all requirements and the configuration file are ready, you can run the project. It has 2 individual entry points and 1 that runs everything at once.
 
-### 3.1 ▶️ The main run file (Run_daily.py)
+### 3.1 ▶️ Main Run File (run_daily.py)
 
-This will be the most run file. It first runs **Take_Snapshoot.py** and retrieves the current information, then runs the command */send-daily-stats* from **discord_bot.py** and sends the statistics to all channels written in config.json.
-
-To run this file, use:
+This is the file you will run most often. It first runs **Take_Snapshoot.py** to fetch the latest guild data, then runs **discord_bot.py** in headless mode to send the statistics to all channels listed in config.json.
 
 ```bash
 python run_daily.py
 ```
 
-### 3.2 1️⃣ Update the database or make a *Snapshoot* (Take_Snapshoot.py)
+### 3.2 1️⃣ Update the Database / Take a Snapshot (Take_Snapshoot.py)
 
-This script updates the database (albion_guild_stats.db) and calculates daily information, doing *today_information - yesterday_information =* and obtaining the daily statistics, or as I call it, the **delta** variable.
-
-To run this file, use:
+This script updates the database (albion_guild_stats.db) and calculates the daily delta — the difference between today's and yesterday's stats — to obtain the daily statistics.
 
 ```bash
 python Take_Snapshoot.py
 ```
 
-Also, you can access the database to view the full history. It's an SQLite database, and you can open it using any graphical SQLite viewer. In my example, I used **DB Browser for SQLite**, but you can use any tool you prefer.
+You can also open the database to view the full history. It is an SQLite database and can be opened with any graphical SQLite viewer. I used **DB Browser for SQLite**, but any compatible tool will work.
 
-### 3.3 ️️2️⃣ Launch the Discord Bot (discord_bot.py)
+### 3.3 2️⃣ Launch the Discord Bot (discord_bot.py)
 
-This script launches the Discord bot, and if you run it directly, it will keep running. However, if it is started from run_daily, it will only run long enough to send the statistics. In general, if you want to use the commands below, you need to run this script manually.
-
-To run this file, use:
+This script starts the Discord bot. If you run it directly, it will keep running and listen for slash commands. If it is started from run_daily.py, it will only run long enough to send the statistics and then exit.
 
 ```bash
 python discord_bot.py
 ```
 
-When the bot is activated, you can type "/" in the chat and select the bot to view its commands. I will list them below and explain each one.
+Once the bot is active, type `/` in any channel and select the bot to view its available commands:
 
 ***/send-daily-stats***
 
-☝️ Sends the daily statistics to the channel where the command was executed. It does not update the guild member database, so if you have not updated the database, the statistics will not be accurate.
+Sends the daily statistics to the channel where the command was executed. It does not update the database, so make sure the snapshot has been taken first.
 
 ***/set-channel report_type:rating***
 
-☝️ Adds the current channel as a destination where the daily statistics will be sent automatically. **It appends to the list instead of overwriting it.**
+Adds the current channel to the list of destinations where daily statistics will be sent automatically. **This appends to the list instead of overwriting it.**
 
 ***/set-guild-id guild_id:YOUR_GUILD_ID***
 
-☝️ **Sets** the provided ID as the new guild to fetch information from. **THIS WILL REPLACE THE PREVIOUS GUILD ID.**
+Sets the provided ID as the guild to fetch information from. **THIS WILL REPLACE THE PREVIOUS GUILD ID.**
+
+# 4. 🔄 Automation
+
+Now that the code is running correctly locally, let's make it run automatically every day using GitHub Actions — completely free.
+
+### 4.1 ☁️ Upload the Code to a GitHub Repository
+
+🟢 The **EASIEST** way is to fork this public repository to your account, which will create an identical copy. If you choose this method, skip the next section.
+
+🟡 If you cloned the repository to your local machine and want to upload it to your own GitHub account as a new repository, follow these steps:
+
+1. Go to GitHub and create a new repository. For personal use, I recommend making it private so confidential information stays safe.
+
+2. Open a terminal in your project directory and run the following commands:
+
+   Initialize the Git structure:
+
+   ```bash
+   git init
+   ```
+
+   Add all files and make an initial commit.
+   
+   **❗ IMPORTANT ❗** If there are files you do not want to upload to GitHub, create a file called **.gitignore** in the project folder and list them there (for example, config.json if it contains sensitive information). **DO NOT add the database file** to .gitignore, or a new empty database will be created on each run and there may be push conflicts.
+
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   ```
+
+   Now link your local project to the online repository. Go to the repository page on GitHub and copy its URL.
+
+   ![](ReadmeAssets/Images/GitHub_Repo_URL.png)
+
+   Then run these commands, replacing `URL` with your repository URL:
+
+   ```bash
+   git remote add origin URL
+   git branch -M main
+   git push -u origin main
+   ```
+
+   When prompted, enter your GitHub **username (your email)** and a **personal access token** as the password (not your account password). You can create a classic token in your GitHub developer settings.
+
+   ![](ReadmeAssets/Images/GitHub_Configuration_1.png)
+   ![](ReadmeAssets/Images/GitHub_Configuration_2.png)
+
+   From now on, whenever you make changes and want to update the online repository, just commit and push:
+
+   ```bash
+   git push
+   ```
+
+### 4.2 🔓 Create Repository Secrets
+
+If you do not want to upload confidential information to the internet, this step is for you. If you made a private repository and already uploaded a config.json with all the required information, you can skip this step.
+
+The project also supports GitHub Repository Secrets as an alternative to config.json. Go to your repository page, open **Settings**, find the **Secrets and variables** section, and select **Actions**. Create the following 3 secrets:
+
+```
+ALBION_GUILD_ID      ← The Albion guild ID. See step 2.2 to obtain it.
+DISCORD_TOKEN        ← The Discord bot token. See step 2.1 to obtain it.
+DISCORD_CHANNEL_IDS  ← The Discord channel ID. If there are multiple, separate them with a comma. See step 2.3 to obtain them.
+```
+
+![](ReadmeAssets/Images/Repo_Secrets.png)
+
+### 4.3 📝 Configure GitHub Actions Workflow
+
+This is the final step — congratulations for making it this far!
+
+Go to your repository on GitHub, navigate to the **Actions** tab, and select the existing workflow: **Albion Guild — Daily Stats**. Then click **Run workflow** to trigger it manually for the first time.
+
+![](ReadmeAssets/Images/Actions_Page.png)
+
+The workflow will run on GitHub's virtual machines and will: install all dependencies, apply the repository secrets (or fall back to config.json if secrets are not set), update the database, send the daily statistics to all configured channels, commit the updated database, and push the changes back to the repository.
+
+From the next day onward, the workflow will run automatically **at 10:00 UTC**. There may be some delay due to high traffic on GitHub's servers — this is normal, so please be patient.
+
+If you want to sync your local files with the latest database committed by the bot, run:
+
+```bash
+git pull
+```
+
+# 5. 🗄️ (Optional) Manage the Database
+
+- This section is in progress.
+
+# 6. ⚠️ Common Issues
+
+- This section is in progress.
