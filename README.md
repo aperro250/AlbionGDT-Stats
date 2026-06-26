@@ -25,6 +25,24 @@ As a solution, I investigated ***where it obtained the data*** and wrote this pr
 
 ***On the first day there will be no statistics message, because the program needs a minimum of 2 days to collect all the necessary data to work. Statistics will be available from the second day onward.***
 
+**If you want to get statistic from America or Asia, change this code-line in **Take_Snapshoot.py**:**
+
+```python
+API_URL  = f"https://gameinfo-ams.albiononline.com/api/gameinfo/guilds/{GUILD_ID}/members"
+```
+
+And replace the dabase URL from Europe to **America**:
+
+```python
+API_URL  = f"https://gameinfo.albiononline.com/api/gameinfo/guilds/{GUILD_ID}/members"
+```
+
+Or for **Asia**:
+
+```python
+API_URL  = f"https://gameinfo-sgp.albiononline.com/api/gameinfo/guilds/{GUILD_ID}/members"
+```
+
 # 1. 🛠️ Installation Guide
 
 ## 1.1 ⏬ Download
